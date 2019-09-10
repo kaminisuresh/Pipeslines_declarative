@@ -1,20 +1,18 @@
 pipeline{
-  agent { label 'Slave2' }
-  stages{
+  agent { label 'Slave1' }
+  tools { 
+    
+   maven 'Maven-3'
+    jdk 'JDK-8'
+  }
+stages{
 
 stage('build'){
 steps{
-  rtMavenRun (
-                    tool: Maven-3, // Tool name from Jenkins configuration
-                    goals: 'clean install'
-                    
-                )
-
+  sh 'mvn --version'
+sh 'mvn clean package'
 }
-
 }
-
-
 }
 
 }
