@@ -1,18 +1,41 @@
-pipeline{
-  agent { label 'Slave2' }
-  tools { 
+pipeline {
+    agent none
+  tools {
     
-   maven 'Maven-3'
-    jdk 'JDK-8'
+   maven 'Maven-3' 
   }
-stages{
+	
+    stages {
+        stage("build and deploy on Slave1 and Slave2") {
+            parallel {
+                stage("Slave1") {
+                    agent {
+                        label "Slave1"
+                    }
+                    stages {
+                        stage("build") {
+                            steps {
+                                sh "mvn clean install"
+                            }
+                        }
+                        
+                    }
+                }
 
-stage('build'){
-steps{
-  sh 'mvn --version'
-sh 'mvn clean package'
-}
-}
-}
-
+                stage("linux") {
+                    agent {
+                        label "Slave2"
+                    }
+                    stages {
+                        stage("build") {
+                            steps {
+                                sh "mvn clean isntall"
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
 }
