@@ -22,14 +22,14 @@ pipeline {
                     }
                 }
 
-                stage("linux") {
+                stage("Slave2") {
                     agent {
                         label "Slave2"
                     }
                     stages {
                         stage("build") {
                             steps {
-                                sh "mvn clean isntall"
+                                sh "mvn clean install"
                             }
                         }
                         
