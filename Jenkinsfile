@@ -5,7 +5,7 @@ pipeline{
 stage('build'){
 steps{
   rtMavenRun (
-                    tool: Maven-3 // Tool name from Jenkins configuration
+                    tool: Maven-3, // Tool name from Jenkins configuration
                     goals: 'clean install'
                     
                 )
